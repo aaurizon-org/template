@@ -1,0 +1,102 @@
+{
+    "id": 328561149828136963,
+    "name": "ArticleContent",
+    "data": {
+        "table": "article_content"
+    },
+    "attrs": {
+        "article_content_id": {
+            "id": 328561149832331264,
+            "name": "article_content_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "article_id": {
+            "id": 328561149832331265,
+            "name": "article_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "locale": {
+            "id": 328561149832331266,
+            "name": "locale",
+            "data": {
+                "length": "2",
+                "unsigned": false,
+                "zerofill": false,
+                "type": "char",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "title": {
+            "id": 328561149832331267,
+            "name": "title",
+            "data": {
+                "length": "128",
+                "unsigned": false,
+                "zerofill": false,
+                "type": "varchar",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "content": {
+            "id": 328561149832331268,
+            "name": "content",
+            "data": {
+                "length": 0,
+                "unsigned": false,
+                "zerofill": false,
+                "type": "text",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "updatetime": {
+            "id": 328561149832331269,
+            "name": "updatetime",
+            "data": {
+                "length": 0,
+                "unsigned": false,
+                "zerofill": false,
+                "type": "?datetime",
+                "autoinc": false,
+                "update": true
+            }
+        }
+    },
+    "indexes": {
+        "PRIMARY": {
+            "id": 328561149836525568,
+            "name": "PRIMARY",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "article_content_id": 328561149832331264
+            }
+        },
+        "article_id": {
+            "id": 328561149836525569,
+            "name": "article_id",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "article_id": 328561149832331265,
+                "locale": 328561149832331266
+            }
+        }
+    }
+}

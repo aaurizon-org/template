@@ -1,0 +1,86 @@
+{
+    "id": 328561149819748354,
+    "name": "Article",
+    "data": {
+        "table": "article"
+    },
+    "attrs": {
+        "article_id": {
+            "id": 328561149823942656,
+            "name": "article_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "path": {
+            "id": 328561149823942657,
+            "name": "path",
+            "data": {
+                "length": "255",
+                "unsigned": false,
+                "zerofill": false,
+                "type": "?varchar",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "native_article_content_id": {
+            "id": 328561149823942658,
+            "name": "native_article_content_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "updatetime": {
+            "id": 328561149823942659,
+            "name": "updatetime",
+            "data": {
+                "length": 0,
+                "unsigned": false,
+                "zerofill": false,
+                "type": "?datetime",
+                "autoinc": false,
+                "update": false
+            }
+        }
+    },
+    "indexes": {
+        "PRIMARY": {
+            "id": 328561149828136960,
+            "name": "PRIMARY",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "article_id": 328561149823942656
+            }
+        },
+        "native_article_content_id": {
+            "id": 328561149828136961,
+            "name": "native_article_content_id",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "native_article_content_id": 328561149823942658
+            }
+        },
+        "path": {
+            "id": 328561149828136962,
+            "name": "path",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "path": 328561149823942657
+            }
+        }
+    }
+}
