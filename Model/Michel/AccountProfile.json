@@ -1,0 +1,55 @@
+{
+    "id": 328561149811359746,
+    "name": "AccountProfile",
+    "data": {
+        "table": "account_profile"
+    },
+    "attrs": {
+        "account_id": {
+            "id": 328561149815554048,
+            "name": "account_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "profile_id": {
+            "id": 328561149815554049,
+            "name": "profile_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        }
+    },
+    "indexes": {
+        "PRIMARY": {
+            "id": 328561149819748352,
+            "name": "PRIMARY",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "account_id": 328561149815554048,
+                "profile_id": 328561149815554049
+            }
+        },
+        "profile_id": {
+            "id": 328561149819748353,
+            "name": "profile_id",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "profile_id": 328561149815554049,
+                "account_id": 328561149815554048
+            }
+        }
+    }
+}
