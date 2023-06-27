@@ -2,7 +2,10 @@
     "id": 328561149811359746,
     "name": "AccountProfile",
     "data": {
-        "table": "account_profile"
+        "table": "account_profile",
+        "table2": "account_profile",
+        "table3": "account_profile",
+        "table4": "account_profile"
     },
     "attrs": {
         "account_id": {
@@ -44,7 +47,14 @@
         "profile_id": {
             "id": 328561149819748353,
             "name": "profile_id",
-            "data": [],
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            },
             "unique": false,
             "attrs": {
                 "profile_id": 328561149815554049,
