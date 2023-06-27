@@ -1,0 +1,89 @@
+{
+    "id": 328561149836525570,
+    "name": "Profile",
+    "data": {
+        "table": "profile"
+    },
+    "attrs": {
+        "profile_id": {
+            "id": 328561149840719872,
+            "name": "profile_id",
+            "data": {
+                "length": "",
+                "unsigned": "unsigned",
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "nickname": {
+            "id": 328561149840719873,
+            "name": "nickname",
+            "data": {
+                "length": "32",
+                "unsigned": false,
+                "zerofill": false,
+                "type": "?varchar",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "permissions": {
+            "id": 328561149840719874,
+            "name": "permissions",
+            "data": {
+                "length": 0,
+                "unsigned": false,
+                "zerofill": false,
+                "type": "int64",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "prohibitions": {
+            "id": 328561149840719875,
+            "name": "prohibitions",
+            "data": {
+                "length": "255",
+                "unsigned": false,
+                "zerofill": false,
+                "type": "binary",
+                "autoinc": false,
+                "update": false
+            }
+        },
+        "updatetime": {
+            "id": 328561149840719876,
+            "name": "updatetime",
+            "data": {
+                "length": 0,
+                "unsigned": false,
+                "zerofill": false,
+                "type": "?datetime",
+                "autoinc": false,
+                "update": true
+            }
+        }
+    },
+    "indexes": {
+        "PRIMARY": {
+            "id": 328561149844914176,
+            "name": "PRIMARY",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "profile_id": 328561149840719872
+            }
+        },
+        "nickname": {
+            "id": 328561149844914177,
+            "name": "nickname",
+            "data": [],
+            "unique": false,
+            "attrs": {
+                "nickname": 328561149840719873
+            }
+        }
+    }
+}
