@@ -1,0 +1,8 @@
+{
+    "id": 328561149798776832,
+    "name": "Ogames",
+    "data": {
+        "database": "ogames",
+        "namespace": "\\Model\\Ogames"
+    }
+}
