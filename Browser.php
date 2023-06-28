@@ -27,7 +27,7 @@ $dirIte = new DirectoryIterator($rootModel."/$path");
 
 <?php
 $cPath = "";
-echo "<a href='?path=/'>Racine</a>";
+echo "<a href='?path='>Racine</a>";
 foreach(explode("/",$path) as $subPath)
 {
     $cPath .= "/$subPath";
@@ -36,44 +36,85 @@ foreach(explode("/",$path) as $subPath)
 }
 ?>
 
+<?php
+    if(isset($_POST['build']))
+    {
+        foreach($_POST['files'] as $fileSelected)
+        {
+            echo "$fileSelected build";
+            echo $_GET['path'];
+        }
+    }
 
-<table>
-    <thead>
-        <tr>
-            <th><input type="checkbox"></th>
-            <th>Name</th>
-            <th>Build</th>
-            <th>Move</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($dirIte as $file) : ?>
-            <?php if ($file->isDot()) continue; ?>
+    if(isset($_POST['move']))
+    {
+        
+        if(array_key_exists("rename", $_POST))
+        {
+            foreach($_POST['files'] as $fileSelected)
+            {
+                $name = $_POST['rename'];
+                $Location = "$rootModel$path/$name";
+                rename($fileSelected, $Location);
+            }
+            
+        }
+        
+    }
+
+    if(isset($_POST['delete']))
+    {
+        foreach($_POST['files'] as $fileSelected)
+        {
+            unlink($fileSelected);
+        }
+    }
+?>
+
+<form method="POST" action="">
+    <table>
+        <thead>
             <tr>
-                <td><input type="checkbox" id="<?= $file->getBasename('.json') ?>"></td>
-                <td><label for="<?= $file->getBasename('.json') ?>"><?php if ($file->getBasename('.json') == '.json'): echo '/'; ?></label></td>
-                <?php else: echo ($file->isDir() ? "<a href=\"?path=$path/{$file->getFilename()}\">" . $file->getBasename('.json')  . '</a>' : $file->getBasename('.json')); ?>
-                <?php endif; ?>
+                <th><input type="checkbox"></th>
+                <th>Name</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th><input type="submit" name="build" value="Build" /></th>
+                <th><input type="submit" name="move" value="Move" /></th>
+                <th><input type="submit" name="delete" value="Delete" /></th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-    <tfoot>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th>Build</th>
-        <th>Move</th>
-        <th>Delete</th>
-    </tfoot>
-</table>
+        </thead>
+        <tbody>
+            
+                <?php foreach ($dirIte as $file) : ?>
+                    <?php if ($file->isDot()) continue; ?>
+
+                    <tr>
+                        <td><input type="checkbox" name="files[]" id="<?= $file->getBasename('.json') ?>" value="<?= $file->getRealPath() ?>"></td>
+                        <td><label for="<?= $file->getBasename('.json') ?>"><?php if ($file->getBasename('.json') == '.json'): echo '/'; ?></label></td>
+                        <?php else: echo ($file->isDir() ? "<a href=\"?path=$path/{$file->getFilename()}\">" . $file->getBasename('.json')  . '</a>' : $file->getBasename('.json')); ?>
+                        <?php endif; ?>
+                    </tr>
+                <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th><input type="submit" name="build" value="Build" /></th>
+            <th><input type="submit" name="move" value="Move" /></th>
+            <th><input type="submit" name="delete" value="Delete" /></th>
+        </tfoot>
+    </table>
+    <input name="rename" type="text" />
+</form>
 
 
 <form method="POST" action="?path=<?=$path?>">
-<input name="name" type="text" />
-<input type="submit" name="type" value="folder" />
-<input type="submit" name="type" value="file" />
-
+    <input name="name" type="text" />
+    <input type="submit" name="type" value="folder" />
+    <input type="submit" name="type" value="file" />
 </form>
