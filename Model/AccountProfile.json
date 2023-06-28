@@ -1,16 +1,17 @@
 {
     "id": 328561149811359746,
-    "name": "AccountProfile",
+    "name": "Mat24",
     "data": {
-        "table": "account_profile",
+        "table": "account_profile1",
         "table2": "account_profile",
-        "table3": "account_profile",
-        "table4": "account_profile"
+        "table35": "account_profile",
+        "table4": "account_profile",
+        "table5": "account_profile"
     },
     "attrs": {
         "account_id": {
             "id": 328561149815554048,
-            "name": "account_id",
+            "name": "account_id2",
             "data": {
                 "length": "",
                 "unsigned": "unsigned",
