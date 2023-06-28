@@ -29,13 +29,20 @@ $dataIndex = $parsedJson['indexes'];
             $parsedJson['data'][$key] = $value;
         }
 
-    
-        if ((isset($_POST['editNameAttr'])) AND (isset($_POST['key'])))
+        
+        ///////////////////// GESTION ATTRIBUT /////////////////////////////////
+        if (((isset($_POST['editAttrName']))) OR ((isset($_POST['editAttrData']))) OR (isset($_POST['addAttrData'])))
         {
-            $key = $_POST['key'];
+            $key1 = $_POST['key1'];
+            $key2 = $_POST['key2'];
             $value = $_POST['value'];
-    
-            $parsedJson['attrs']['account_id'][$key] = $value;
+
+            if(isset($_POST['key3'])){
+                $key3 = $_POST['key3'];
+                $parsedJson['attrs'][$key1][$key2][$key3] = $value;
+            }else{
+                $parsedJson['attrs'][$key1][$key2] = $value;
+            }
         }
 
         $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
@@ -99,10 +106,11 @@ $dataData = $dataArray['data'];
                 <input type="text" value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <form id="editNameAttr" action="" method="POST">
-                    <input type="text" name="key" value="name" style="margin-right:20px;">
+                <form id="editAttrName" action="" method="POST">
+                    <input type="hidden" name="key1" value="<?= $key ?>">
+                    <input type="text" name="key2" value="name" style="margin-right:20px;">
                     <input type="text" name="value" value="<?= $monJson['name'] ?>">
-                    <input type="submit" name ="editNameAttr" value="EDIT">
+                    <input type="submit" name ="editAttrName" value="EDIT">
                 </form>
             </div>
 
@@ -111,14 +119,22 @@ $dataData = $dataArray['data'];
                     <summary>DATA</summary>
                     <?php  foreach($monJson['data'] as  $key2 => $data): ?>
                         <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
-                            <input type="text" value="<?= $key2 ?>" style ="margin-right:20px;">
-                            <input type="text" value="<?= $data ?>">
-                            <input type="button" value="EDIT">
+                            <form id="editAttrData" action="" method="POST">
+                                <input type="hidden" name="key1" value="<?= $key ?>">
+                                <input type="hidden" name="key2" value="data">
+                                <input type="text" name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
+                                <input type="text" name="value" value="<?= $data ?>">
+                                <input type="submit" name="editAttrData" value="EDIT">
+                            </form>
                         </div>
                    <?php endforeach;?>
-                   <input type="text" value="" style ="margin-right:20px;">
-                   <input type="text" value="" style ="margin-right:20px;">
-                   <input type="button" value="ADD">
+                   <form id="addAttrData" action="" method="POST">
+                        <input type="hidden" name="key1" value="<?= $key ?>">
+                        <input type="hidden" name="key2" value="data">
+                        <input type="text" name="key3" value="" style ="margin-right:20px;">
+                        <input type="text" name="value" value="" style ="margin-right:20px;">
+                        <input type="submit" name="addAttrData" value="ADD">
+                   </form>
 
                 </details>
             </div>
@@ -161,7 +177,7 @@ $dataData = $dataArray['data'];
                    <?php endforeach;?>
                    <input type="text" value="" style ="margin-right:20px;">
                    <input type="text" value="" style ="margin-right:20px;">
-                   <input type="button" value="ADD">
+                   <input type="button" name="addAttrData" value="add">
 
                 </details>
             </div>

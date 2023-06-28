@@ -2,7 +2,9 @@
     "id": 328561149798776833,
     "name": "Account",
     "data": {
-        "table": "account"
+        "table": "account",
+        "class": "class",
+        "name": "toto"
     },
     "attrs": {
         "account_id": {

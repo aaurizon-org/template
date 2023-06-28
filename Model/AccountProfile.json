@@ -2,8 +2,8 @@
     "id": 328561149811359746,
     "name": "Mat24",
     "data": {
-        "table": "account_profile1",
-        "table2": "account_profile",
+        "table": "account_profile2",
+        "table2": "account_profile6",
         "table35": "account_profile",
         "table4": "account_profile",
         "table5": "account_profile"
@@ -11,14 +11,15 @@
     "attrs": {
         "account_id": {
             "id": 328561149815554048,
-            "name": "account_id2",
+            "name": "account_id",
             "data": {
                 "length": "",
-                "unsigned": "unsigned",
+                "unsigned": "unsigned2",
                 "zerofill": false,
                 "type": "int64",
                 "autoinc": false,
-                "update": false
+                "update": false,
+                "test": "test"
             }
         },
         "profile_id": {
@@ -28,7 +29,7 @@
                 "length": "",
                 "unsigned": "unsigned",
                 "zerofill": false,
-                "type": "int64",
+                "type": "int644",
                 "autoinc": false,
                 "update": false
             }
