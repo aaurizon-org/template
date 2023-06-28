@@ -11,15 +11,46 @@ $dataIndex = $parsedJson['indexes'];
 ?>
 
 <?php 
-    if(isset($_POST['editName']) AND (isset($_POST['key']) ))
-    {
-        $key = $_POST['key'];
-        $value = $_POST['value'];
 
-        $parsedJson['attrs']['account_id'][$key] = $value;
+// if(isset($_POST['editName']) AND (isset($_POST['key']) ))
+// {
+    if($_SERVER['REQUEST_METHOD'] == 'POST')
+    {
+        if(isset($_POST['editName']))
+        {
+            $value = $_POST['name'];
+            $parsedJson['name'] = $value;
+        }
+
+        if (((isset($_POST['editData'])) AND (isset($_POST['key']))) OR ((isset($_POST['addData'])) AND (isset($_POST['key']))))
+        {
+            $key = $_POST['key'];
+            $value = $_POST['data'];
+            $parsedJson['data'][$key] = $value;
+        }
+
+        
+        ///////////////////// GESTION ATTRIBUT /////////////////////////////////
+        if (((isset($_POST['editAttrName']))) OR ((isset($_POST['editAttrData']))) OR (isset($_POST['addAttrData'])))
+        {
+            $key1 = $_POST['key1'];
+            $key2 = $_POST['key2'];
+            $value = $_POST['value'];
+
+            if(isset($_POST['key3'])){
+                $key3 = $_POST['key3'];
+                $parsedJson['attrs'][$key1][$key2][$key3] = $value;
+            }else{
+                $parsedJson['attrs'][$key1][$key2] = $value;
+            }
+        }
+
         $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
         file_put_contents('Model/AccountProfile.json', $newJsonString);
+
     }
+        
+
 ?>
 
 
@@ -35,28 +66,31 @@ $dataData = $dataArray['data'];
 ?>
 
 <div>
-    <form action="">
         <input type="text" placeholder="ID">
         <input type="text"  value="<?= $dataArray['id']; ?>">
         <br>
-        <input type="text" placeholder="NAME">
-        <input type="text"  value="<?= $dataArray['name']; ?>">
-        <input type="submit" value="EDIT">
-    </form>
+
+        <form id="editName" action="" method="POST">
+            <input type="text" placeholder="NAME">
+            <input type="text" name="name" value="<?= $dataArray['name']; ?>">
+            <input type="submit" name="editName" value="EDIT">
+        </form>
 </div>
 <br>
 <div>
-    <form action="">
+    <h1> Data</h1>
         <?php foreach ($dataData as $key => $valuesData): ?>
-            <input type="text" value="<?= $key ?>">
-            <input type="text"  value=" <?= $valuesData ?>">
-            <input type="submit" value="EDIT">
-            <br>
+            <form id="editData" action="" method="POST">
+                <input type="text" name="key" value="<?= $key ?>">
+                <input type="text" name="data" value="<?= $valuesData ?>">
+                <input type="submit"  name="editData" value="EDIT">
+            </form>
         <?php endforeach;?>
-        <input type="text" value="">
-        <input type="text"  value="">
-        <input type="submit" value="ADD">
-    </form>
+        <form id="addData" action="" method="POST">
+            <input type="text" name="key" value="">
+            <input type="text" name="data" value="">
+            <input type="submit" name="addData" value="ADD">
+        </form>
 </div>
 <br><br>
         
@@ -72,10 +106,11 @@ $dataData = $dataArray['data'];
                 <input type="text" value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <form id="editName" action="" method="POST">
-                    <input type="text" name="key" value="name" style="margin-right:20px;">
+                <form id="editAttrName" action="" method="POST">
+                    <input type="hidden" name="key1" value="<?= $key ?>">
+                    <input type="text" name="key2" value="name" style="margin-right:20px;">
                     <input type="text" name="value" value="<?= $monJson['name'] ?>">
-                    <input type="submit" name ="editName" value="EDIT">
+                    <input type="submit" name ="editAttrName" value="EDIT">
                 </form>
             </div>
 
@@ -84,14 +119,22 @@ $dataData = $dataArray['data'];
                     <summary>DATA</summary>
                     <?php  foreach($monJson['data'] as  $key2 => $data): ?>
                         <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
-                            <input type="text" value="<?= $key2 ?>" style ="margin-right:20px;">
-                            <input type="text" value="<?= $data ?>">
-                            <input type="button" value="EDIT">
+                            <form id="editAttrData" action="" method="POST">
+                                <input type="hidden" name="key1" value="<?= $key ?>">
+                                <input type="hidden" name="key2" value="data">
+                                <input type="text" name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
+                                <input type="text" name="value" value="<?= $data ?>">
+                                <input type="submit" name="editAttrData" value="EDIT">
+                            </form>
                         </div>
                    <?php endforeach;?>
-                   <input type="text" value="" style ="margin-right:20px;">
-                   <input type="text" value="" style ="margin-right:20px;">
-                   <input type="button" value="ADD">
+                   <form id="addAttrData" action="" method="POST">
+                        <input type="hidden" name="key1" value="<?= $key ?>">
+                        <input type="hidden" name="key2" value="data">
+                        <input type="text" name="key3" value="" style ="margin-right:20px;">
+                        <input type="text" name="value" value="" style ="margin-right:20px;">
+                        <input type="submit" name="addAttrData" value="ADD">
+                   </form>
 
                 </details>
             </div>
@@ -134,7 +177,7 @@ $dataData = $dataArray['data'];
                    <?php endforeach;?>
                    <input type="text" value="" style ="margin-right:20px;">
                    <input type="text" value="" style ="margin-right:20px;">
-                   <input type="button" value="ADD">
+                   <input type="button" name="addAttrData" value="add">
 
                 </details>
             </div>
