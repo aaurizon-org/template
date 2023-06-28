@@ -8,6 +8,8 @@ $parsedJson = json_decode($json,true);
 $dataAtrributs= $parsedJson['attrs'];
 $dataIndex = $parsedJson['indexes'];
 // var_dump($dataIndex);
+
+
 ?>
 
 <?php 
@@ -45,6 +47,36 @@ $dataIndex = $parsedJson['indexes'];
             }
         }
 
+        //////////////////////////  GASTION INDEX /////////////////////////////////
+        if((isset($_POST['editIndexName'])) AND (isset($_POST['key1'])))
+        {
+            $key1=$_POST['key1'];
+            $value=$_POST['value'];
+            
+            $parsedJson['indexes'][$key1]['name'] = $value;
+        }
+
+        if((isset($_POST['editIndexUnique'])))
+        {
+            $key1=$_POST['key1'];
+            $key2=$_POST['key2'];
+
+
+            // si la checkbox n'est pas checker
+            if(isset($_POST['value']))
+            {
+                $value=TRUE;
+            }
+            else
+            {
+                $value=FALSE;
+            }
+            
+            $parsedJson['indexes'][$key1][$key2] = $value;
+        }
+
+        
+
         $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
         file_put_contents('Model/AccountProfile.json', $newJsonString);
 
@@ -55,6 +87,11 @@ $dataIndex = $parsedJson['indexes'];
 
 
 <html>
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
 
 
 <!-- ///////////////////////////////////////////// STEVEN //////////////////////////////////////// -->
@@ -80,7 +117,7 @@ $dataData = $dataArray['data'];
 <div>
     <h1> Data</h1>
         <?php foreach ($dataData as $key => $valuesData): ?>
-            <form id="editData" action="" method="POST">
+            <form  action="" method="POST">
                 <input type="text" name="key" value="<?= $key ?>">
                 <input type="text" name="data" value="<?= $valuesData ?>">
                 <input type="submit"  name="editData" value="EDIT">
@@ -106,7 +143,7 @@ $dataData = $dataArray['data'];
                 <input type="text" value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <form id="editAttrName" action="" method="POST">
+                <form action="" method="POST">
                     <input type="hidden" name="key1" value="<?= $key ?>">
                     <input type="text" name="key2" value="name" style="margin-right:20px;">
                     <input type="text" name="value" value="<?= $monJson['name'] ?>">
@@ -119,7 +156,7 @@ $dataData = $dataArray['data'];
                     <summary>DATA</summary>
                     <?php  foreach($monJson['data'] as  $key2 => $data): ?>
                         <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
-                            <form id="editAttrData" action="" method="POST">
+                            <form action="" method="POST">
                                 <input type="hidden" name="key1" value="<?= $key ?>">
                                 <input type="hidden" name="key2" value="data">
                                 <input type="text" name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
@@ -155,14 +192,28 @@ $dataData = $dataArray['data'];
                 <input type="text" value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
+            <form action="" method="POST">
                 <input type="text" value="Name" style="margin-right:20px;">
-                <input type="text" value="<?= $monJson['name'] ?>">
-                <input type="button" value="EDIT">
+                <input type="hidden" name="key1" value="<?= $key ?>">
+                <input type="text" name="value" value="<?= $monJson['name'] ?>">
+                <input type="submit" name="editIndexName" value="EDIT">
+            </form>
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <input type="text" value="Unique">
-                <input type="checkbox" value="value="<?= $monJson['unique'] ?>>
-                <input type="button" value="EDIT">
+                <form action="" method="POST">
+                    <input type="text" value="Unique">
+                    <?php
+                   if($monJson['unique'] == TRUE ){
+                    $checked ='checked';
+                   } else {
+                    $checked ='';
+                   }
+                    ?>
+                    <input type="hidden" name="key1" value="<?= $key ?>">
+                    <input type="hidden" name="key2" value="unique">
+                    <input type="checkbox" name="value" value=""   <?= $checked ?>>
+                    <input type="submit" name="editIndexUnique" value="EDIT">
+                </form>
             </div>
 
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
