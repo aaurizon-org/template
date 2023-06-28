@@ -51,8 +51,8 @@ foreach(explode("/",$path) as $subPath)
         <?php foreach ($dirIte as $file) : ?>
             <?php if ($file->isDot()) continue; ?>
             <tr>
-                <td><input type="checkbox"></td>
-                <td><?php if ($file->getBasename('.json') == '.json'): echo '/'; ?></td>
+                <td><input type="checkbox" id="<?= $file->getBasename('.json') ?>"></td>
+                <td><label for="<?= $file->getBasename('.json') ?>"><?php if ($file->getBasename('.json') == '.json'): echo '/'; ?></label></td>
                 <?php else: echo ($file->isDir() ? "<a href=\"?path=$path/{$file->getFilename()}\">" . $file->getBasename('.json')  . '</a>' : $file->getBasename('.json')); ?>
                 <?php endif; ?>
             </tr>
