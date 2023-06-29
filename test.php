@@ -1,7 +1,6 @@
 <?php 
 
 $json = file_get_contents("Model/AccountProfile.json");
- 
 $parsedJson = json_decode($json,true);
 
 $dataAtrributs= $parsedJson['attrs'];
@@ -141,21 +140,25 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
 <!-- ///////////////////////////////////////////// STEVEN //////////////////////////////////////// -->
 <?php 
 
+$json = file_get_contents("Model/AccountProfile.json");
+$parsedJson = json_decode($json,true);
 
+$dataAtrributs= $parsedJson['attrs'];
+$dataIndex = $parsedJson['indexes'];
 $dataArray = $parsedJson;
 $dataData = $dataArray['data'];
 ?>
 
 <div>
-        <input type="text" placeholder="ID">
-        <input type="text"  value="<?= $dataArray['id']; ?>">
-        <br>
+    <input type="text" placeholder="ID">
+    <input type="text"  value="<?= $dataArray['id']; ?>">
+    <br>
 
-        <form id="editName" action="" method="POST">
-            <input type="text" placeholder="NAME">
-            <input type="text" name="name" value="<?= $dataArray['name']; ?>">
-            <input type="submit" name="editName" value="EDIT">
-        </form>
+    <form id="editName" action="" method="POST">
+        <input type="text" placeholder="NAME">
+        <input type="text" name="name" value="<?= $dataArray['name']; ?>">
+        <input type="submit" name="editName" value="EDIT">
+    </form>
 </div>
 <br>
 <div>
