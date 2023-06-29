@@ -93,7 +93,46 @@ $dataIndex = $parsedJson['indexes'];
             $parsedJson['indexes'][$key1][$key2] = $value;
         }
 
-        
+        //addAttrsInIndex
+
+        if((isset($_POST['addAttrsInIndex'])))    
+        {
+
+            $key=$_POST['key'];
+            $key1=$_POST['key1'];
+            $key2=$_POST['key2'];
+            $value= explode(':', $_POST['attrSelect']);
+            $key3 = $value[0];
+            $value = (INT)$value[1];
+
+            $parsedJson[$key][$key1][$key2][$key3] = $value;
+        }
+
+        //name="moveAttr"
+        if(isset($_POST['moveAttr']))
+        {
+            $key="indexes";
+            $key1=$_POST['key'];
+            $key2="attrs";
+            $key3=$_POST['value'];
+            $action=$_POST['moveAttr'];
+
+            $tab = $parsedJson[$key][$key1][$key2];
+            $pos = array_search($key3, array_keys($tab));
+
+            if(($action == "UP") AND ($pos != 0 ))
+            {
+                $pos = $pos-1;
+            }
+            else if (($pos != (count($tab)-1))AND ($action== "DOWN"))
+            {
+                $pos +=1;
+            }
+            
+            repositionArrayElement($tab, $key3, $pos);
+            $parsedJson[$key][$key1][$key2] = $tab;
+        }
+
 
         $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
         file_put_contents('Model/AccountProfile.json', $newJsonString);
@@ -268,17 +307,21 @@ $dataData = $dataArray['data'];
                         <form action="" method="POST">
                             <input type="text" name="value" value="<?= $key3?>" style ="margin-right:20px;">
                             <input type="hidden" name="key" value="<?= $key ?>">
-                            <input type="submit" value="UP">
-                            <input type="submit" value="DOWN">
+                            <input type="submit" name="moveAttr" value="UP">
+                            <input type="submit" name="moveAttr" value="DOWN">
                             <input type="submit" name="deleteAttrs" value="DELETE">
                         </form>
                     </div>
                    <?php endforeach;?>
                    <div>     
                         <form action="" method="POST">
-                            <select name="" id="">
-                            <?php foreach($dataAtrributs as $key1 =>$attrs): ?>
-                                <option value=""><?= $key3 ?></option>
+                            <input type="hidden" name="key" value="indexes">
+                            <input type="hidden" name="key1" value="<?= $key ?>">
+                            <input type="hidden" name="key2" value="attrs">
+                            <select name="attrSelect" id="">
+                                <?php ?>
+                                <?php foreach($dataAtrributs as $key1 =>$attrs):?>
+                                <option value="<?= $key1.":".$attrs['id']?>"><?= $key1 ?></option>
                                 <?php endforeach; ?>
                             </select>
                             <input type="submit" name="addAttrsInIndex" value="ADD">
@@ -293,3 +336,18 @@ $dataData = $dataArray['data'];
 
 
 </html>
+
+
+
+<?php
+function repositionArrayElement(array &$array, $key, int $order): void
+{
+    if(($a = array_search($key, array_keys($array))) === false){
+        throw new \Exception("The {$key} cannot be found in the given array.");
+    }
+    $p1 = array_splice($array, $a, 1);
+    $p2 = array_splice($array, 0, $order);
+    $array = array_merge($p2, $p1, $array);
+}
+
+?>
