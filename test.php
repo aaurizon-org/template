@@ -3,143 +3,130 @@
 $json = file_get_contents("Model/AccountProfile.json");
  
 $parsedJson = json_decode($json,true);
-// var_dump($parsedJson);
 
 $dataAtrributs= $parsedJson['attrs'];
 $dataIndex = $parsedJson['indexes'];
-// var_dump($dataIndex);
 
-
-?>
-
-<?php 
-
-// if(isset($_POST['editName']) AND (isset($_POST['key']) ))
-// {
-    if($_SERVER['REQUEST_METHOD'] == 'POST')
+if($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if(isset($_POST['editName']))
     {
-        if(isset($_POST['editName']))
-        {
-            $value = $_POST['name'];
-            $parsedJson['name'] = $value;
-        }
-
-        if (((isset($_POST['editData'])) AND (isset($_POST['key']))) OR ((isset($_POST['addData'])) AND (isset($_POST['key']))))
-        {
-            $key = $_POST['key'];
-            $value = $_POST['data'];
-            $parsedJson['data'][$key] = $value;
-        }
-
-        
-        ///////////////////// GESTION ATTRIBUT /////////////////////////////////
-        if (((isset($_POST['editAttrName']))) OR ((isset($_POST['editAttrData']))) OR (isset($_POST['addAttrData'])))
-        {
-            $key1 = $_POST['key1'];
-            $key2 = $_POST['key2'];
-            $value = $_POST['value'];
-            $key = 'attrs';
-
-            if(isset($_POST['key3'])){
-                $key3 = $_POST['key3'];
-                $parsedJson[$key][$key1][$key2][$key3] = $value;
-            }else{
-                $parsedJson[$key][$key1][$key2] = $value;
-            }
-        }
-        if ((isset($_POST['deleteAttrs'])) AND (isset($_POST['value'])) AND (isset($_POST['key'])))
-        {
-            $key = "indexes";
-            $key1 = $_POST['key'];
-            $key2 = "attrs";
-            $key3 = $_POST['value'];
-
-            unset($parsedJson[$key][$key1][$key2][$key3]);
-        }
-
-        //////////////////////////  GESTION INDEX /////////////////////////////////
-        if((isset($_POST['editIndexName'])) OR ((isset($_POST['editIndexData']))) OR (isset($_POST['addIndexData'])))
-        {
-            $key1=$_POST['key1'];
-            $key2=$_POST['key2'];
-            $value=$_POST['value'];
-            $key = 'indexes';
-
-
-            if(isset($_POST['key3'])){
-                $key3 = $_POST['key3'];
-                $parsedJson[$key][$key1][$key2][$key3] = $value;
-            }else{
-                $parsedJson[$key][$key1][$key2] = $value;
-            }
-        }
-
-        if((isset($_POST['editIndexUnique'])))
-        {
-            $key1=$_POST['key1'];
-            $key2=$_POST['key2'];
-
-
-            // si la checkbox n'est pas checker
-            if(isset($_POST['value']))
-            {
-                $value=TRUE;
-            }
-            else
-            {
-                $value=FALSE;
-            }
-            
-            $parsedJson['indexes'][$key1][$key2] = $value;
-        }
-
-        //addAttrsInIndex
-
-        if((isset($_POST['addAttrsInIndex'])))    
-        {
-
-            $key=$_POST['key'];
-            $key1=$_POST['key1'];
-            $key2=$_POST['key2'];
-            $value= explode(':', $_POST['attrSelect']);
-            $key3 = $value[0];
-            $value = (INT)$value[1];
-
-            $parsedJson[$key][$key1][$key2][$key3] = $value;
-        }
-
-        //name="moveAttr"
-        if(isset($_POST['moveAttr']))
-        {
-            $key="indexes";
-            $key1=$_POST['key'];
-            $key2="attrs";
-            $key3=$_POST['value'];
-            $action=$_POST['moveAttr'];
-
-            $tab = $parsedJson[$key][$key1][$key2];
-            $pos = array_search($key3, array_keys($tab));
-
-            if(($action == "UP") AND ($pos != 0 ))
-            {
-                $pos = $pos-1;
-            }
-            else if (($pos != (count($tab)-1))AND ($action== "DOWN"))
-            {
-                $pos +=1;
-            }
-            
-            repositionArrayElement($tab, $key3, $pos);
-            $parsedJson[$key][$key1][$key2] = $tab;
-        }
-
-
-        $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
-        file_put_contents('Model/AccountProfile.json', $newJsonString);
-
+        $value = $_POST['name'];
+        $parsedJson['name'] = $value;
     }
-        
 
+    if (((isset($_POST['editData'])) AND (isset($_POST['key']))) OR ((isset($_POST['addData'])) AND (isset($_POST['key']))))
+    {
+        $key = $_POST['key'];
+        $value = $_POST['data'];
+        $parsedJson['data'][$key] = $value;
+    }
+
+    
+    ///////////////////// GESTION ATTRIBUT /////////////////////////////////
+    if (((isset($_POST['editAttrName']))) OR ((isset($_POST['editAttrData']))) OR (isset($_POST['addAttrData'])))
+    {
+        $key1 = $_POST['key1'];
+        $key2 = $_POST['key2'];
+        $value = $_POST['value'];
+        $key = 'attrs';
+
+        if(isset($_POST['key3'])){
+            $key3 = $_POST['key3'];
+            $parsedJson[$key][$key1][$key2][$key3] = $value;
+        }else{
+            $parsedJson[$key][$key1][$key2] = $value;
+        }
+    }
+
+    if ((isset($_POST['deleteAttrs'])) AND (isset($_POST['value'])) AND (isset($_POST['key'])))
+    {
+        $key = "indexes";
+        $key1 = $_POST['key'];
+        $key2 = "attrs";
+        $key3 = $_POST['value'];
+
+        unset($parsedJson[$key][$key1][$key2][$key3]);
+    }
+
+    //////////////////////////  GESTION INDEX /////////////////////////////////
+    if((isset($_POST['editIndexName'])) OR ((isset($_POST['editIndexData']))) OR (isset($_POST['addIndexData'])))
+    {
+        $key1=$_POST['key1'];
+        $key2=$_POST['key2'];
+        $value=$_POST['value'];
+        $key = 'indexes';
+
+
+        if(isset($_POST['key3'])){
+            $key3 = $_POST['key3'];
+            $parsedJson[$key][$key1][$key2][$key3] = $value;
+        }else{
+            $parsedJson[$key][$key1][$key2] = $value;
+        }
+    }
+
+    if((isset($_POST['editIndexUnique'])))
+    {
+        $key1=$_POST['key1'];
+        $key2=$_POST['key2'];
+
+
+        // si la checkbox n'est pas checker
+        if(isset($_POST['value']))
+        {
+            $value=TRUE;
+        }
+        else
+        {
+            $value=FALSE;
+        }
+        
+        $parsedJson['indexes'][$key1][$key2] = $value;
+    }
+
+    if((isset($_POST['addAttrsInIndex'])))    
+    {
+
+        $key=$_POST['key'];
+        $key1=$_POST['key1'];
+        $key2=$_POST['key2'];
+        $value= explode(':', $_POST['attrSelect']);
+        $key3 = $value[0];
+        $value = (INT)$value[1];
+
+        $parsedJson[$key][$key1][$key2][$key3] = $value;
+    }
+
+    //name="moveAttr"
+    if(isset($_POST['moveAttr']))
+    {
+        $key="indexes";
+        $key1=$_POST['key'];
+        $key2="attrs";
+        $key3=$_POST['value'];
+        $action=$_POST['moveAttr'];
+
+        $tab = $parsedJson[$key][$key1][$key2];
+        $pos = array_search($key3, array_keys($tab));
+
+        if(($action == "UP") AND ($pos != 0 ))
+        {
+            $pos = $pos-1;
+        }
+        else if (($pos != (count($tab)-1))AND ($action== "DOWN"))
+        {
+            $pos +=1;
+        }
+        
+        repositionArrayElement($tab, $key3, $pos);
+        $parsedJson[$key][$key1][$key2] = $tab;
+    }
+
+
+    $newJsonString = json_encode($parsedJson,JSON_PRETTY_PRINT);
+    file_put_contents('Model/AccountProfile.json', $newJsonString);
+}
 ?>
 
 
@@ -241,7 +228,7 @@ $dataData = $dataArray['data'];
 <h1> INDEX</h1>
 
 <?php foreach($dataIndex as  $key => $monJson):?>
-    <details>
+    <details open>
         <summary style="background-color: grey;"><?= $key ?></summary>
         <div style="width: 100%; display: flex; flex-direction:column;padding:20px 0px; padding-left:60px; ">
             <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
@@ -275,7 +262,7 @@ $dataData = $dataArray['data'];
             </div>
 
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <details>
+                <details open>
                     <summary>DATA</summary>
                     <?php  foreach($monJson['data'] as  $key2 => $data): ?>
                         <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
@@ -300,7 +287,7 @@ $dataData = $dataArray['data'];
             </div>
 
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
-                <details>
+                <details open>
                     <summary>ATTRIBUTES</summary>
                     <?php  foreach($monJson['attrs'] as  $key3 => $attr):?>
                     <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
