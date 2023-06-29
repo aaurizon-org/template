@@ -11,7 +11,7 @@
     "attrs": {
         "account_id": {
             "id": 328561149815554048,
-            "name": "account_id",
+            "name": "account_id2",
             "data": {
                 "length": "",
                 "unsigned": "unsigned2",
@@ -38,7 +38,7 @@
     "indexes": {
         "PRIMARY": {
             "id": 328561149819748352,
-            "name": "PRIMARY",
+            "name": "PRIMARY2",
             "data": [],
             "unique": false,
             "attrs": {
