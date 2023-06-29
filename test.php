@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST')
     }
 
     //deleteData
-    if((isset($_POST['deleteData'])) AND (isset($_POST['key'])))
+    if(isset($_POST['deleteData']))
     {
         $key = "data";
         $key1 = $_POST['key'];
@@ -180,12 +180,12 @@ $dataData = $dataArray['data'];
 ?>
 
 <div>
-    <input type="text" disabled="disabled" placeholder="ID">
-    <input type="text" disabled="disabled" value="<?= $dataArray['id']; ?>">
+    <input type="text" readonly placeholder="ID">
+    <input type="text" readonly value="<?= $dataArray['id']; ?>">
     <br>
 
     <form id="editName" action="" method="POST">
-        <input type="text" disabled="disabled" placeholder="NAME">
+        <input type="text" readonly placeholder="NAME">
         <input type="text" name="name" value="<?= $dataArray['name']; ?>">
         <input type="submit" name="editName" value="EDIT">
     </form>
@@ -195,7 +195,7 @@ $dataData = $dataArray['data'];
     <h1> Data</h1>
         <?php foreach ($dataData as $key => $valuesData): ?>
             <form  action="" method="POST">
-                <input type="text" disabled="disabled" name="key" value="<?= $key ?>">
+                <input type="test" readonly name="key" value="<?= $key ?>">
                 <input type="text" name="data" value="<?= $valuesData ?>">
                 <input type="submit" name="editData" value="EDIT">
                 <input type="submit" name="deleteData" value="DELETE">
@@ -217,13 +217,13 @@ $dataData = $dataArray['data'];
         <summary style="background-color: grey;"><?= $key ?></summary>
         <div style="width: 100%; display: flex; flex-direction:column;padding:20px 0px; padding-left:60px; ">
             <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
-                <input type="text" disabled="disabled" value="ID" style ="margin-right:20px;">
-                <input type="text" disabled="disabled" value="<?= $monJson['id'] ?>">
+                <input type="text" readonly value="ID" style ="margin-right:20px;">
+                <input type="text" readonly value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
                 <form action="" method="POST">
                     <input type="hidden" name="key1" value="<?= $key ?>">
-                    <input type="text" disabled="disabled" name="key2" value="name" style="margin-right:20px;">
+                    <input type="text" readonly name="key2" value="name" style="margin-right:20px;">
                     <input type="text" name="value" value="<?= $monJson['name'] ?>">
                     <input type="submit" name ="editAttrName" value="EDIT">
                 </form>
@@ -237,7 +237,7 @@ $dataData = $dataArray['data'];
                             <form action="" method="POST">
                                 <input type="hidden" name="key1" value="<?= $key ?>">
                                 <input type="hidden" name="key2" value="data">
-                                <input type="text" disabled="disabled" name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
+                                <input type="text" readonly name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
                                 <input type="text" name="value" value="<?= $data ?>">
                                 <input type="submit" name="editAttrData" value="EDIT">
                                 <input type="submit" name="deleteAttrData" value="DELETE">
@@ -267,12 +267,12 @@ $dataData = $dataArray['data'];
         <summary style="background-color: grey;"><?= $key ?></summary>
         <div style="width: 100%; display: flex; flex-direction:column;padding:20px 0px; padding-left:60px; ">
             <div style="display: flex;flex-direction: row; height: 40px;margin-bottom:20px;">
-                <input type="text" disabled="disabled" value="ID" style ="margin-right:20px;">
-                <input type="text" disabled="disabled" value="<?= $monJson['id'] ?>">
+                <input type="text" readonly value="ID" style ="margin-right:20px;">
+                <input type="text" readonly value="<?= $monJson['id'] ?>">
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
             <form action="" method="POST">
-                <input type="text" disabled="disabled" value="Name" style="margin-right:20px;">
+                <input type="text" readonly value="Name" style="margin-right:20px;">
                 <input type="hidden" name="key1" value="<?= $key ?>">
                 <input type="hidden" name="key2" value="name">
                 <input type="text" name="value" value="<?= $monJson['name'] ?>">
@@ -281,7 +281,7 @@ $dataData = $dataArray['data'];
             </div>
             <div style="display: flex;flex-direction: row; margin-bottom:20px;">
                 <form action="" method="POST">
-                    <input type="text" disabled="disabled" value="Unique">
+                    <input type="text" readonly value="Unique">
                     <?php
                    if($monJson['unique'] == TRUE ){
                     $checked ='checked';
@@ -304,7 +304,7 @@ $dataData = $dataArray['data'];
                             <form action="" method="POST">
                                 <input type="hidden" name="key1" value="<?= $key ?>">
                                 <input type="hidden" name="key2" value="data">
-                                <input type="text" disabled="disabled" name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
+                                <input type="text" readonly name="key3" value="<?= $key2 ?>" style ="margin-right:20px;">
                                 <input type="text" name="value" value="<?= $data ?>">
                                 <input type="submit" name="editIndexData" value="EDIT">
                                 <input type="submit" name="deleteIndexData" value="DELETE">
